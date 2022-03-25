@@ -42,7 +42,7 @@ function coinFlip() {
 function coinFlips(flips) {
   const ret = [];
   for(let i=0; i<flips; i++) {
-    ret.push(coinFlip())
+    ret.push( Math.random() <=.5 ? "heads" : "tails")
   }
   return ret
 }

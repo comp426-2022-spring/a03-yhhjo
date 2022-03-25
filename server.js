@@ -1,5 +1,5 @@
 // Import coin module
-import { coinFlip, coinFlips, flipACoin } from "./modules/coin.mjs";
+import { coinFlip, coinFlips, flipACoin, countFlips } from "./modules/coin.mjs";
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -34,12 +34,17 @@ app.get('/app/flip/call/tails/', (req, res)=> {
 
 // Check endpoint /app/flips/param:[number]
 app.get('/app/flips/:number', (req, res)=> {
-    const flips = coinFlips(req.params.number)
+    const raw = coinFlips(req.params.number)
+    const summary = countFlips(raw)
+    const response = {
+        raw: raw, 
+        summary: summary
+    }
     // Respond with status 200
     res.statusCode = 200;
     res.statusMessage = "OK"
     // Write JSON object
-    res.json(flips)
+    res.json(response)
 });
 
 // Check endpoint /app/flip/
